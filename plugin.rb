@@ -2,6 +2,8 @@
 # about: A plugin to provide ldap authentication. 
 # version: 0.3.0
 # authors: Jon Bake <jonmbake@gmail.com>
+# modified by github.com/mpgn -> @mpgn_x64
+# => add auto registration since we trust email from ldap db
 
 enabled_site_setting :ldap_enabled
 

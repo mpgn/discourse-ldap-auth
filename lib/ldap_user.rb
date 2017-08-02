@@ -15,6 +15,15 @@ class LDAPUser
     result.username = @username
     result.email = @email
     result.user = @user
+    # want user to be activated based on ldap trust , see OmniauthCallbacksController
+    user_info = User.find_by(email: @email)
+    if user_info
+      result.user = user_info
+    else
+      result.user = User.create(username: @username,
+        name: @name,
+        email: @email)
+    end
     result.omit_username = true
     result.email_valid = true
     return result
