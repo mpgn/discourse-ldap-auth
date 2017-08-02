@@ -13,15 +13,31 @@ gem 'net-ldap', '0.14.0'
 gem 'omniauth-ldap', '1.0.5'
 
 require 'yaml'
-require_relative 'lib/ldap_user'
 
 class LDAPAuthenticator < ::Auth::Authenticator
   def name
     'ldap'
   end
 
-  def after_authenticate(auth_options)
-    return auth_result(auth_options.info)
+  def after_authenticate(auth_token)
+    @name = auth_token.info[:name]
+    @email = auth_token.info[:email]
+    @username = auth_token.info[:nickname]
+    result = Auth::Result.new
+    result.name = @name
+    result.username = @username
+    result.email = @email
+    result.user = User.find_by(username_lower: @username)
+    if !result.user
+      result.user = User.create(
+        username: @username,
+        name: @name,
+        email: @email, 
+        active: true)
+    end
+    result.omit_username = true
+    result.email_valid = true
+    return result
   end
 
   def register_middleware(omniauth)
@@ -76,10 +92,10 @@ class LDAPAuthenticator < ::Auth::Authenticator
   end
 end
 
-auth_provider title: 'Login with LDAP',
-  message: 'Log in with your LDAP credentials',
+auth_provider title: 'Connexion LDAP',
+  message: 'Se connecter avec vos identifiants LDAP',
   frame_width: 920,
-  frame_height: 800,
+  frame_height: 250,
   authenticator: LDAPAuthenticator.new
 
 register_css <<CSS
