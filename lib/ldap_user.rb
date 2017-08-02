@@ -22,7 +22,7 @@ class LDAPUser
     else
       result.user = User.create(username: @username,
         name: @name,
-        email: @email)
+        email: @email, active: true)
     end
     result.omit_username = true
     result.email_valid = true
