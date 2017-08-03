@@ -13,15 +13,16 @@ h1 {
     text-align: center;
     font-size: 1.429em; text-align:center;
     padding: 10px 15px 7px;
-    &:after {
-        content: '';
-        height: 100%;
-        display: flex;
-        background: url('http://i.imgur.com/Zcobw1x.png');
-        background-size: auto auto;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
+}
+
+h1:after {
+    content: '';
+    height: 100%;
+    display: flex;
+    background: url('http://i.imgur.com/Zcobw1x.png');
+    background-size: auto auto;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 form {
