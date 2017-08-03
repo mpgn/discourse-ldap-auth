@@ -94,8 +94,8 @@ end
 
 auth_provider title: 'Connexion LDAP',
   message: 'Se connecter avec vos identifiants LDAP',
-  frame_width: 920,
-  frame_height: 250,
+  frame_width: 480,
+  frame_height: 480,
   authenticator: LDAPAuthenticator.new
 
 register_css <<CSS
